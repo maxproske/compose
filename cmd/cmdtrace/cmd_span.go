@@ -20,7 +20,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"sort"
 	"strings"
 	"time"
 
@@ -130,7 +129,9 @@ func commandName(cmd *cobra.Command) []string {
 		}
 		name = append(name, c.Name())
 	}
-	sort.Sort(sort.Reverse(sort.StringSlice(name)))
+	for i, j := 0, len(name)-1; i < j; i, j = i+1, j-1 {
+		name[i], name[j] = name[j], name[i]
+	}
 	return name
 }
 
